@@ -1,14 +1,24 @@
-var http = require('http');
-var express = require('express');
+var express = require('express'),
+    fs = require('fs'),
+    app = express();
+//    eps = require('ejs'),
+//    morgan = require('morgan');
+
 var app = express();
 
-app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 8080);
-app.set('ip', process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1');
+var ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
-http.createServer(app).listen(app.get('port'), app.get('ip'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+
+
+// app is running!
+app.get('/', function(req, res) {
+    res.send('Hello from NodeJS  at '+ new Date());
 });
 
-app.get('/', function (req, res) {
-  res.send('Hello World!');
-});
+
+
+app.listen(8080, ip);
+
+
+
+module.exports = app;
